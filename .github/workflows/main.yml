@@ -23,11 +23,11 @@ jobs:
     - name: Install claat
       run: go get github.com/googlecodelabs/tools/claat
     - name: generate code
-      run: claat export src/doc.md
+      run: claat export -o=public src/doc.md
     - name: Commit updated public-folder
       run: |
         find .
-        git add testing-claat-now-yes
+        git add public
         git config --local user.email "limdi@aduu.de"
         git config --local user.name "Limdi"
         git commit -m "Add changes" -a
