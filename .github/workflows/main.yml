@@ -1,0 +1,36 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        go-version: [1.13.x, 1.14.x]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{ matrix.go-version }}
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Install claat
+      run: go get github.com/googlecodelabs/tools/claat
+    - name: generate code
+      run: claat export -o public doc.md
+    - name: Commit updated public-folder
+      run: |
+        git add public
+        git config --local user.email "limdi@aduu.de"
+        git config --local user.name "Limdi"
+        git commit -m "Add changes" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
