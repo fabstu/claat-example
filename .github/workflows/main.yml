@@ -23,7 +23,7 @@ jobs:
     - name: Install claat
       run: go get github.com/googlecodelabs/tools/claat
     - name: generate code
-      run: claat export ./doc.md
+      run: claat export src/doc.md
     - name: Commit updated public-folder
       run: |
         git add .
