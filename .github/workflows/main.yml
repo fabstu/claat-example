@@ -26,7 +26,8 @@ jobs:
       run: claat export src/doc.md
     - name: Commit updated public-folder
       run: |
-        git add .
+        find .
+        git add testing-claat-now-yes
         git config --local user.email "limdi@aduu.de"
         git config --local user.name "Limdi"
         git commit -m "Add changes" -a
